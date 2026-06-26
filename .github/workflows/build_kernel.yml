@@ -1,0 +1,19 @@
+name: Build Begonia Kernel via Marketplace Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-kernel:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Kernel Source
+        uses: actions/checkout@v4
+
+      - name: Build Android Kernel
+        uses: lemniskett/android-kernel-actions@v1.0.1
+        with:
+          arch: arm64
+          compiler: proton-clang
+          defconfig: begonia_user_defconfig
+          image: Image.gz-dtb
