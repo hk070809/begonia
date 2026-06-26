@@ -10,15 +10,13 @@ jobs:
       - name: Checkout Kernel Source
         uses: actions/checkout@v4
 
-      # FIX 1: Tell Git that the workspace directory is safe
-      - name: Fix Git Safe Directory
-        run: |
-          git config --global --add safe.directory /github/workspace
-
       - name: Build Android Kernel
         uses: lemniskett/android-kernel-actions@v1.0.1
+        env:
+          # This forces Git to ignore the container ownership mismatch globally
+          GIT_SAFE_DIR: "true" 
         with:
           arch: arm64
-          compiler: proton # FIX 2: Swapped "proton-clang" to just "proton"
+          compiler: proton
           defconfig: begonia_user_defconfig
           image: Image.gz-dtb
