@@ -10,7 +10,8 @@ jobs:
     steps:
       - name: Checkout Kernel Source
         uses: actions/checkout@v4
-
+      - name: fix ownership
+        run: git config --global --add safe.directory /github/workspace
       - name: Build Android Kernel
         uses: lemniskett/android-kernel-actions@v1.0.1
         env:
