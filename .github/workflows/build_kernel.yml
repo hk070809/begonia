@@ -1,24 +1,51 @@
-name: Build Begonia Kernel via Marketplace Action
-
+name: Build Begonia Kernel
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-kernel:
+  build:
     runs-on: ubuntu-22.04
+
     steps:
-      - name: Checkout Kernel Source
-        uses: actions/checkout@v4
-      - name: fix ownership
-        run: git config --global --add safe.directory /github/workspace
-      - name: Build Android Kernel
-        uses: lemniskett/android-kernel-actions@v1.0.1
-        env:
-          # This forces Git to ignore the container ownership mismatch globally
-          GIT_SAFE_DIR: "true" 
-        with:
-          arch: arm64
-          compiler: proton
-          defconfig: begonia_user_defconfig
-          image: Image.gz-dtb
+    - name: Checkout Kernel Source
+      uses: actions/checkout@v4
+
+    - name: Install Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bc build-essential binfmt-support bison flex libssl-dev libelf-dev ccache libncurses5-dev zip
+
+    - name: Clone Proton Clang Toolchain
+      run: |
+        git clone --depth=1 https://github.com/kdrag0n/proton-clang.git $GITHUB_WORKSPACE/proton-clang
+
+    - name: Compile Kernel
+      run: |
+        # Bypass any Git folder locks
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        
+        export ARCH=arm64
+        export SUBARCH=arm64
+        export TC_DIR="$GITHUB_WORKSPACE/proton-clang"
+        export PATH="$TC_DIR/bin:$PATH"
+        
+        # Explicit compiler variables
+        export CROSS_COMPILE="$TC_DIR/bin/aarch64-linux-gnu-"
+        export CROSS_COMPILE_ARM32="$TC_DIR/bin/arm-linux-gnueabi-"
+        export CC=clang
+        export CLANG_TRIPLE=aarch64-linux-gnu-
+
+        # Build execution steps
+        make O=out begonia_user_defconfig
+        make -j$(nproc) O=out \
+          CC=clang \
+          CROSS_COMPILE="$CROSS_COMPILE" \
+          CROSS_COMPILE_ARM32="$CROSS_COMPILE_ARM32" \
+          CLANG_TRIPLE="$CLANG_TRIPLE"
+
+    - name: Upload Kernel Image
+      uses: actions/upload-artifact@v4
+      with:
+        name: Begonia-Kernel-Image
+        path: out/arch/arm64/boot/Image.gz*
