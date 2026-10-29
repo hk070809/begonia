@@ -457,8 +457,8 @@ static void alarm_set_power_on(struct timespec64 new_pwron_time, bool logo)
 		alm.enabled = 4;
 	}
 	alarm_rtc_dev = alarmtimer_get_rtcdev();
-	rtc_time_to_tm(pwron_time, &alm.time);
-	rtc_set_alarm_poweron(alarm_rtc_dev, &alm);
+	//rtc_time_to_tm(pwron_time, &alm.time);
+	//rtc_set_alarm_poweron(alarm_rtc_dev, &alm);
 }
 
 static int do_timerfd_settime(int ufd, int flags, 
