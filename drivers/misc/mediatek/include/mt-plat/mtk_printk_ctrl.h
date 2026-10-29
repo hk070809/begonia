@@ -18,11 +18,11 @@ inline bool mt_get_uartlog_status(void)
 {
 	return false;
 }
-static inline void mt_disable_uart(void)
+inline void mt_disable_uart(void)
 {
 
 }
-static inline void mt_enable_uart(void)
+inline void mt_enable_uart(void)
 {
 
 }
