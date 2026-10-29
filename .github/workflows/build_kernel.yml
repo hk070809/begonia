@@ -10,8 +10,6 @@ jobs:
     steps:
     - name: Checkout Kernel Source
       uses: actions/checkout@v4
-      with:
-        ref: android-11.0
 
     - name: Install Build Dependencies
       run: |
