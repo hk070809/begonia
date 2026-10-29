@@ -2744,12 +2744,14 @@ skip:
 				rem_nsec_con_write_ttyS/1000,
 				(unsigned long)len_con_write_pstore,
 				(unsigned long)time_con_write_pstore,
-				rem_nsec_con_write_pstore/1000,
+				rem_nsec_con_write_pstore/1000);
+				/*
 				0 < 0) {
 			conwrite_stat_struct.con_write_statbuf[0] = 'N';
 			conwrite_stat_struct.con_write_statbuf[1] = 'A';
 			conwrite_stat_struct.con_write_statbuf[2] = '\0';
 			}
+			*/
 			break;
 		}
 		/* print the uart status next time enter the console_unlock */
