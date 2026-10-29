@@ -7175,9 +7175,9 @@ int __sched_deisolate_cpu_unlocked(int cpu)
 
 	if (cpu_online(cpu)) {
 		/* Kick CPU to immediately do load balancing */
-		if (!test_and_set_bit(NOHZ_BALANCE_KICK, nohz_flags(cpu)))
+		/*if (!test_and_set_bit(NOHZ_BALANCE_KICK, nohz_flags(cpu)))
 			smp_send_reschedule(cpu);
-	}
+	}   */
 
 out:
 	trace_sched_isolate(cpu, cpumask_bits(cpu_isolated_mask)[0],
