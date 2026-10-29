@@ -41,7 +41,9 @@
 #include "walt.h"
 #include "eas_plus.h"
 #include "hmp.h"
-
+static inline void update_eas_uclamp_min(void) {
+    // stubbed to satisfy linker
+}
 /*
  * Targeted preemption latency for CPU-bound tasks:
  *
