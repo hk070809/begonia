@@ -14,8 +14,7 @@
  *
  *	Fixes:
  *	Vitaly E. Lavrov		RTA_OK arithmetics was wrong.
- */
-#include <linux/stacktrace.h>  
+ */ 
 #include <linux/bitops.h>
 #include <linux/errno.h>
 #include <linux/module.h>
@@ -91,7 +90,8 @@ static void rtnl_print_btrace(unsigned long data);
 static DEFINE_TIMER(rtnl_chk_timer, rtnl_print_btrace, 0, 0);
 
 void rtnl_get_btrace(struct task_struct *who)
-{
+{ 
+/*
 	struct stack_trace debug_trace;
 
 	debug_trace.max_entries = RTNL_DEBUG_ADDRS_COUNT;
@@ -108,10 +108,12 @@ void rtnl_get_btrace(struct task_struct *who)
 	rtnl_instance.entry_nr = debug_trace.nr_entries;
 	rtnl_instance.flag = 1;
 	mod_timer(&rtnl_chk_timer, jiffies + RTNL_LOCK_MAX_HOLD_TIME * HZ);
+*/	
 }
 
 void rtnl_print_btrace(unsigned long data)
 {	if (rtnl_instance.flag) {
+	/*
 		struct stack_trace show_trace;
 
 		show_trace.nr_entries = rtnl_instance.entry_nr;
@@ -123,10 +125,12 @@ void rtnl_print_btrace(unsigned long data)
 			rtnl_instance.pid,
 			task_state_to_char(rtnl_instance.task),
 			rtnl_instance.start);
+			
 
 		print_stack_trace(&show_trace, 0);
 		show_stack(rtnl_instance.task, NULL);
 		pr_info("------------%s end-----------\n", __func__);
+	*/	
 	} else {
 		pr_info("[mtk_net][rtnl_lock]There is no process hold rtnl lock\n");
 	}
