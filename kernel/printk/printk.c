@@ -2730,7 +2730,7 @@ skip:
 			memset(conwrite_stat_struct.con_write_statbuf, 0x0,
 				sizeof(conwrite_stat_struct.con_write_statbuf)
 				- 1);
-			if (snprintf(conwrite_stat_struct.con_write_statbuf,
+			/*if (snprintf(conwrite_stat_struct.con_write_statbuf,
 				sizeof(conwrite_stat_struct.con_write_statbuf)
 				- 1,
 "cpu%d [%lu.%06lu]--[%lu.%06lu] 'ttyS' %lubytes %lu.%06lus, 'pstore' %lubytes %lu.%06lus, uart dump:%s\n",
