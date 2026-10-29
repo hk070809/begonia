@@ -2745,7 +2745,7 @@ skip:
 				(unsigned long)len_con_write_pstore,
 				(unsigned long)time_con_write_pstore,
 				rem_nsec_con_write_pstore/1000,
-				mtk8250_uart_dump()) < 0) {
+				0 < 0) {
 			conwrite_stat_struct.con_write_statbuf[0] = 'N';
 			conwrite_stat_struct.con_write_statbuf[1] = 'A';
 			conwrite_stat_struct.con_write_statbuf[2] = '\0';
