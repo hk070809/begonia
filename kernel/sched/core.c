@@ -7004,7 +7004,7 @@ int do_isolation_work_cpu_stop(void *data)
 	 * We might have been in tickless state. Clear NOHZ flags to avoid
 	 * us being kicked for helping out with balancing
 	 */
-	nohz_balance_clear_nohz_mask(cpu);
+	//nohz_balance_clear_nohz_mask(cpu);
 
 	local_irq_enable();
 	return 0;
